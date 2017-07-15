@@ -1,0 +1,123 @@
+body {
+  background: #fafafa;
+}
+
+#logo-container img {
+  height: 50px;
+  vertical-align: middle;
+}
+
+label {
+  font-weight: normal;
+}
+
+.caret {
+  width: auto; 
+  border: none ;
+}
+
+.alert.alert-warning {
+  margin-top: 2%;
+  padding: 1% 2%;
+  position: relative;
+}
+
+.alert.alert-warning button {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  border-radius: 50%;
+  color: #8a6d3b;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+
+.page-footer {
+  padding: 0px;
+  margin-top: 20px;
+}
+
+.mdl-button--colored:hover {
+  background: transparent !important;
+  color: #3F51B5;
+}
+
+.mdl-button--accent:hover {
+  background: transparent !important;
+  color: #FF4081 !important;
+}
+
+/*For devices above 992px.*/
+@media screen and (min-width: 993px) {
+  nav a:last-child {
+    float: right;
+    font-size: 2.92rem;
+  }
+
+  #pagelink:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #table tr th:first-child,
+  #table tr th:nth-child(3) {
+    width: 20%;
+  }
+
+  #table tr td {
+    padding: 5px;
+  }
+
+  #reply0, #reply1, #reply2, #reply3, #reply4, #reply5, #reply6, #reply7, #reply8, #reply9, #reply10 {
+    border: 1px dotted #3F51B5;
+    margin-top: 2%;
+    padding: 1%;
+  }
+
+  #reply0 {
+    border: none;
+  }
+
+  .getOutput {
+    border: 1px dotted #FF4081;
+    padding: 1%;
+    max-width: 76%;
+    width: 100%;
+  }
+
+  .copyReply {
+    max-width: 20%;
+    max-height: 50%;
+  }
+
+  .getOutput,
+  .copyReply {
+    display: inline-table;
+  }
+
+  .copyReply button {
+    margin-left: 20px;
+  }
+
+  .copyReply button:last-child {
+    margin-top: 30%;
+  }
+}
+
+/*For devices below 992px.*/
+@media screen and (max-width: 992px) {
+  nav a:last-child {
+    display: none;
+  }
+
+  #table tr th:first-child,
+  #table tr th:nth-child(3) {
+    width: 20%;
+  }
+
+  .alert.alert-warning button {
+    border-radius: 0;
+    right: 0;
+    top: 0;
+  }
+}

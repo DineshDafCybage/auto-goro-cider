@@ -1,11 +1,445 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Auto Reply Generator</title>
+    <link rel="icon" href="https://storage.googleapis.com/ddautoreplygenerator.appspot.com/images/icon.png" type="image/png" sizes="16x16">
+    <link rel="canonical" href="https://dd-gedcc.appspot.com/">
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
+    <!--Import materialize.css-->
+    <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="css/default.css">
   </head>
-  <body>
-    <div>TODO write content</div>
+
+  <body ng-app="">
+    <nav class="indigo darken-1" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="https://dd-gedcc.appspot.com/" class="brand-logo"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
+        <a href="https://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase">gedcc</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="alert alert-warning warn-content">
+        <button class="btn-warning" id="close-warning"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <h5><i class="fa fa-warning" aria-hidden="true"></i> Warning!</h5>
+        <p><i class="fa fa-star" aria-hidden="true"></i> This tool is developed for internal use only. Please check the generated reply carefully before replying.</p>
+        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Tool developer will not be responsible in case if wrong reply is sent by sender.</p>
+      </div>
+
+      <!-- Input Section Starts -->
+
+      <div class="input-section">
+        <h4>Input Section</h4>
+
+        <!-- Select type of reply starts-->
+        <div class="input-field col s12">
+          <select id="getReplyType" onchange="myFunction();">
+            <option value="" disabled selected>Please select type to generate export/download command: </option>
+            <optgroup label="Using File List">
+              <option value="opt_0">Generate Export / Download command using list of files.</option>
+            </optgroup>
+            <optgroup label="Using Site Tag">
+              <option value="opt_1">Generate Export / Download command using site tag directly.</option>
+            </optgroup>
+          </select>
+        </div>
+        <!-- Select type of reply ends-->
+
+        <form id="myForm">
+          <!-- Start of Receiver's and Sender's Name -->
+          <div class="row col s12 hide my-input" id="input0">
+            <div class="input-field col s6">
+              <input id="getRecName" type="text" class="validate" ng-model="getRecName" autofocus>
+              <label for="getRecName">Receiver's Name *</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="getSenName" type="text" class="validate" ng-model="getSenName">
+              <label for="getSenName">Sender's Name *</label>
+            </div>
+          </div>
+          <!-- Eod of Receiver's and Sender's Name -->
+
+          <div class="row hide my-input" id="input1">
+            <div class="input-field col s12">
+              <input id="getGumLiveUrl" type="text" class="validate" ng-model="getGumLiveUrl">
+              <label for="getGumLiveUrl">Gumdrop Live URL *</label>
+            </div>
+          </div>
+
+          <div class="row hide my-input" id="input2">
+            <div class="input-field col s12">
+              <input id="getFbxPreUrl" type="text" class="validate" ng-model="getFbxPreUrl">
+              <label for="getFbxPreUrl">Enter the FBX Form's Preview URL *</label>
+            </div>
+          </div>
+
+          <div class="row hide my-input" id="input3">
+            <div class="input-field col s12">
+              <input id="getFbxLiveUrl" type="text" class="validate" ng-model="getFbxLiveUrl">
+              <label for="getFbxLiveUrl">Enter the FBX Form's Live URL *</label>
+            </div>
+          </div>
+
+          <div class="row col s12 hide my-input" id="input4">
+            <div class="row col s6">
+              FBX Form Start Date:<span class="red-text">*</span>
+              <div class="inline">
+                <input id="getFbxStartDt" type="date" class="validate" ng-model="getFbxStartDt">
+              </div>
+            </div>
+            <div class="row col s6">
+              FBX Form End Date:
+              <div class="inline">
+                <input id="getFbxEndDt" type="date" class="validate" ng-model="getFbxEndDt">
+              </div>
+            </div>
+          </div>
+
+          <div class="row hide my-input" id="input5">
+            <div class="input-field col s12">
+              <input id="getFbxShareEmail" type="text" class="validate" ng-model="getFbxShareEmail">
+              <label for="getFbxShareEmail">FBX Form's trix sharing email *</label>
+            </div>
+          </div>
+
+          <div class="row hide my-input" id="input6">
+            <div class="input-field col s12">
+              <input id="getFbxData" type="text" class="validate" ng-model="getFbxData">
+              <label for="getFbxData">FBX Form's data collection URL *</label>
+            </div>
+          </div>
+        </form>
+
+        <!-- Input Section Ends -->
+
+        <table>
+          <tbody>
+            <tr>
+              <td class="center-align">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="show-reply">
+                  <marquee direction="left" width="20"><i class="fa fa-sign-in" aria-hidden="true"></i></marquee>
+                  &nbsp;&nbsp;Generate&nbsp;&nbsp;
+                  <marquee width="20"><i class="fa fa-sign-out" aria-hidden="true"></i></marquee>
+                </button>
+              </td>
+              <td class="center-align">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+                  <i class="fa fa-spin fa-refresh" aria-hidden="true"></i>&nbsp;&nbsp;Reset All&nbsp;&nbsp;<i class="fa fa-spin fa-refresh" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="output-section">
+        <h4>Output Section</h4>
+
+        <!-- Reply 0: Alert when nothing is selected.-->
+        <div id="reply0" class="show my-output">
+          <p class="red-text"><i class="fa fa-warning" aria-hidden="true"></i><span id="empty-fields"> Please select type of reply required.</span></p>
+        </div>
+
+        <!-- Reply 1 for opt_0: Reply for Gumdrop after publishing file. -->
+        <div id="reply1" class="hide my-output">
+          <h6 class="text-align"><strong>Reply for Gumdrop after publishing file.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>File is live @ <span ng-bind="getGumLiveUrl"></span><p>
+            <p>Regards,<p>
+            <p ng-bind="getSenName"></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 2 for opt_1: Reply for Gumdrop when file gives 404 error. -->
+        <div id="reply2" class="hide my-output">
+          <h6 class="text-align"><strong>Reply for Gumdrop when file gives 404 error.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>The file you requested does not exist (Giving file not found - 404 error). Could you please re-upload it?<p>
+            <p>Regards,<p>
+            <p ng-bind="getSenName"></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 3 for opt_2: Reply when trix is not connected to FBX Form. -->
+        <div id="reply3" class="hide my-output">
+          <h6 class="text-align"><strong>Reply when trix is not connected to FBX Form.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done.</li>
+              <li><span class="hide">4. </span>Form linked with trix - Unable to connect.</li>
+              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - Could you please share the trix with "<span ng-bind="getFbxShareEmail"></span>" as I am unable to connect the trix?</li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 4 for opt_3: Reply for Non-Salesforce FBX Form and no-access to trix. -->
+        <div id="reply4" class="hide my-output">
+          <h6 class="text-align"><strong>Reply for Non-Salesforce FBX Form and no-access to trix.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done.</li>
+              <li><span class="hide">4. </span>Form linked with trix - Connected.</li>
+              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - We don't have access to the spreadsheet, so please run a test yourself to make sure responses are populated correctly in trix.</li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 5 for opt_4: Reply when Salesforce is connected to FBX Form. -->
+        <div id="reply5" class="hide my-output">
+          <h6 class="text-align"><strong>Reply when Salesforce is connected to FBX Form.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
+              <li><span class="hide">4. </span>Form integrated with the Salesforce - Already integrated.</li>
+              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - As this is Salesforce form, we can't check the data collection at our end. Please check and let us know if you face any issue.</li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 6 for opt_5: Reply when user don't have access to trix. -->
+        <div id="reply6" class="hide my-output">
+          <h6 class="text-align"><strong>Reply when user don't have access to trix.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
+              <li><span class="hide">4. </span>Form linked with trix - Connected.</li>
+              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - We don't have access to the spreadsheet, so please run a test yourself to make sure responses are populated correctly in trix.</li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 7 for opt_6: Reply when FBX Form's start date is Future Date. -->
+        <div id="reply7" class="hide my-output">
+          <h6 class="text-align"><strong>Reply when FBX Form's start date is Future Date.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>I have published the form to live.<p>
+            <p>Note: Currently the live form is landing on the blank page as the start date of the form is set as <span ng-bind="getFbxStartDt | date:'MM / dd / yyyy'"></span>.</p>
+            <p>Live URL: <span ng-bind="getFbxLiveUrl"></span></p>
+            <p>Preview URL: <span ng-bind="getFbxPreUrl"></span></p>.
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
+              <li><span class="hide">4. </span>Form linked with trix - Done.</li>
+              <li><span class="hide">5. </span>Checked for the data collection: <span ng-bind="getFbxData"></span></li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 8 for opt_7: Reply for AJAX FBX Form. -->
+        <div id="reply8" class="hide my-output">
+          <h6 class="text-align"><strong>Reply for AJAX FBX Form.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
+              <li><span class="hide">4. </span>Form linked with trix - Connected.</li>
+              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - As this is an Ajax form, we are not able to check the data collection. Kindly check the same at your end.</li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 9 for opt_8: Reply when App Engine Datastore is used for data collection of FBX Form. -->
+        <div id="reply9" class="hide my-output">
+          <h6 class="text-align"><strong>Reply when App Engine Datastore is used for data collection of FBX Form.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
+              <li><span class="hide">4. </span>Form linked with trix - NO, As the form is linked to "App Engine datastore".</li>
+            </ol>
+            <p>Do you need Google Spreadsheet for data collection?</p>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+
+        <!-- Reply 10 for opt_9: Reply when trix is connected to FBX Form and working properly. -->
+        <div id="reply10" class="hide my-output">
+          <h6 class="text-align"><strong>Reply when trix is connected to FBX Form and working properly.</strong></h6>
+          <div class="getOutput">
+            <p>Hi <span ng-bind="getRecName"></span>,</p>
+            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
+            <p>Test scenarios:<p>
+            <ol>
+              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
+              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
+              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
+              <li><span class="hide">4. </span>Form linked with trix - Done</li>
+              <li><span class="hide">5. </span>Checked for the data collection: <span ng-bind="getFbxData"></span></li>
+            </ol>
+            <p>Regards,<p>
+            <p><span ng-bind="getSenName"></span></p>
+          </div>
+          <div class="copyReply">
+            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          © 2017 Copyright DD
+          <span class="grey-text text-lighten-4 right">Webpage designed &amp; developed by Dinesh K. Daf.</span>
+        </div>
+      </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script>
+              (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                  (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+              })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+              ga('create', 'UA-91943232-2', 'auto');
+              ga('send', 'pageview');
+
+    </script>
   </body>
 </html>
