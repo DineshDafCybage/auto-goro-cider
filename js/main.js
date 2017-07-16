@@ -146,6 +146,9 @@ function showReply() {
   var getCommandType = document.getElementById("getCommandType");
   var getSelectedIndex = getCommandType.selectedIndex;
   var getTypeOptionLen = getCommandType.options.length;
+  var fileInputDownload = document.getElementById('fileInputDownload');
+  var fileInputExport = document.getElementById('fileInputExport');
+  console.log(fileInputDownload.value.split(','));
   if (getSelectedIndex === 0) {
     getReply[0].classList.remove("hide");
   } else {

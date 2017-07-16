@@ -71,45 +71,50 @@
           <!-- Download using file list start -->
           <div class="row hide my-input col s12" id="input1">
             <div class="input-field col s6">
-              <div class="file-field input-field">
-                <div class="btn">
-                  <span class="text">Select file.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
-                  <input type="file" accept=".txt" onchange="checkfileDown(this);" id="fileInputDownload">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
-                </div>
-              </div>
+              <!--              <div class="file-field input-field">
+                              <div class="btn">
+                                <span class="text">Select file.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
+                                <input type="file" accept=".txt" onchange="checkfileDown(this);" id="fileInputDownload">
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
+                              </div>
+                            </div>-->
+              <textarea id="fileInputDownload" ng-model="fileInputDownload"></textarea>
+              <label for="fileInputDownload">Please enter the list of files to be downloaded.*</label>
+
             </div>
 
             <div class="input-field col s6">
               <input id="getDownloadPath" type="text" class="validate" ng-model="getDownloadPath">
               <label for="getDownloadPath">Please enter the location to save downloaded files. (optional)</label>
             </div>
-            
-            <textarea id="fileDisplayAreaDownload"></textarea>
+
+            <!--<textarea id="fileDisplayAreaDownload"></textarea>-->
           </div>
           <!-- Download using file list end -->
 
           <!-- Export using file list start -->
           <div class="row hide my-input col s12" id="input2">
             <div class="input-field col s6">
-              <div class="file-field input-field">
-                <div class="btn">
-                  <span class="text">Select file.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
-                  <input type="file" accept=".txt" onchange="checkfileExp(this);" id="fileInputExport">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
-                </div>
-              </div>
+              <!--              <div class="file-field input-field">
+                              <div class="btn">
+                                <span class="text">Select file.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
+                                <input type="file" accept=".txt" onchange="checkfileExp(this);" id="fileInputExport">
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
+                              </div>
+                            </div>-->
+              <textarea id="fileInputExport" ng-model="fileInputExport"></textarea>
+              <label for="fileInputExport">Please enter the list of files to be exported.*</label>
             </div>
 
             <div class="input-field col s6">
               <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
               <label for="getExportPath">Please enter the location to save exported files. (optional)</label>
             </div>
-            
+
             <pre id="fileDisplayAreaExport"></pre>
           </div>
           <!-- Export using file list end -->
