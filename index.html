@@ -35,7 +35,7 @@
         <button class="btn-warning" id="close-warning"><i class="fa fa-times" aria-hidden="true"></i></button>
         <h5><i class="faa-slow fa fa-warning faa-flash animated" aria-hidden="true"></i> Warning!</h5>
         <p><i class="fa fa-star" aria-hidden="true"></i> This tool is developed for internal use only. Please do not circulate the link outside the project.</p>
-        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> If generating a command for particular files, then please create a text <code>(.txt)</code> file with list of files. For demo file <a href="https://storage.googleapis.com/dd-gedcc.appspot.com/demo-file/export_demo_file.txt" download>Click Here</a></p>
+        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> If generating a command for particular files, then please create a text <code>(.txt)</code> file with list of files. For demo file, <a href="https://storage.googleapis.com/dd-gedcc.appspot.com/demo-file/export_demo_file.txt" download>Click Here</a></p>
         <p><i class="fa fa-check-circle" aria-hidden="true"></i> If you want to save the exported / downloaded files to particular location, then please enter a valid path while generating the command. For e.g.: <code>/Users/{LDAP}/Documents/for_cider/{export / download}/{sitename}</code></p>
       </div>
 
@@ -86,8 +86,8 @@
               <input id="getDownloadPath" type="text" class="validate" ng-model="getDownloadPath">
               <label for="getDownloadPath">Please enter the location to save downloaded files. (optional)</label>
             </div>
-            
-            <textarea id="fileDisplayAreaDownload"></textarea>
+
+            <textarea id="fileDisplayAreaDownload" class="hide"></textarea>
           </div>
           <!-- Download using file list end -->
 
@@ -109,21 +109,21 @@
               <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
               <label for="getExportPath">Please enter the location to save exported files. (optional)</label>
             </div>
-            
-            <pre id="fileDisplayAreaExport"></pre>
+
+            <textarea id="fileDisplayAreaExport" class="hide"></textarea>
           </div>
           <!-- Export using file list end -->
 
           <!-- Download using site tag start -->
           <div class="row hide my-input col s12" id="input3">
             <div class="input-field col s6">
-              <input id="getFbxLiveUrl" type="text" class="validate" ng-model="getFbxLiveUrl">
-              <label for="getFbxLiveUrl">Please enter site-tag of a particular site to download all files. *</label>
+              <input id="getDownSiteTag" type="text" class="validate" ng-model="getDownSiteTag">
+              <label for="getDownSiteTag">Please enter site-tag of a particular site to download all files. *</label>
             </div>
 
             <div class="input-field col s6">
-              <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
-              <label for="getExportPath">Please enter the location to save downloaded files. (optional)</label>
+              <input id="getDownSitePath" type="text" class="validate" ng-model="getDownSitePath">
+              <label for="getDownSitePath">Please enter the location to save downloaded files. (optional)</label>
             </div>
           </div>
           <!-- Download using site tag end -->
@@ -131,13 +131,13 @@
           <!-- Export using site tag start -->
           <div class="row col s12 hide my-input col s12" id="input4">
             <div class="input-field col s6">
-              <input id="getFbxLiveUrl" type="text" class="validate" ng-model="getFbxLiveUrl">
-              <label for="getFbxLiveUrl">Please enter site-tag of a particular site to export all files. *</label>
+              <input id="getExpSiteTag" type="text" class="validate" ng-model="getExpSiteTag">
+              <label for="getExpSiteTag">Please enter site-tag of a particular site to export all files. *</label>
             </div>
 
             <div class="input-field col s6">
-              <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
-              <label for="getExportPath">Please enter the location to save exported files. (optional)</label>
+              <input id="getExpSitePath" type="text" class="validate" ng-model="getExpSitePath">
+              <label for="getExpSitePath">Please enter the location to save exported files. (optional)</label>
             </div>
           </div>
           <!-- Export using site tag end -->
@@ -169,20 +169,15 @@
       <div class="output-section">
         <h4>Output Section</h4>
 
-        <!-- Reply 0: Alert when nothing is selected.-->
+        <!-- Output 0: Alert when nothing is selected.-->
         <div id="reply0" class="show my-output">
           <p class="red-text faa-slow faa-flash animated"><i class="fa fa-warning" aria-hidden="true"></i><span id="empty-fields"> Please select type to generate command.</span></p>
         </div>
 
-        <!-- Reply 1 for opt_0: Reply for Gumdrop after publishing file. -->
+        <!-- Output 1 for opt_0: Command generated to download files. -->
         <div id="reply1" class="hide my-output">
-          <h6 class="text-align"><strong>Reply for Gumdrop after publishing file.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>File is live @ <span ng-bind="getGumLiveUrl"></span><p>
-            <p>Regards,<p>
-            <p ng-bind="getSenName"></p>
-          </div>
+          <h6 class="text-align"><strong>Command generated to download files.</strong></h6>
+          <div class="getOutput"></div>
           <div class="copyReply">
             <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
               <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
@@ -193,15 +188,10 @@
           </div>
         </div>
 
-        <!-- Reply 2 for opt_1: Reply for Gumdrop when file gives 404 error. -->
+        <!-- Output 2 for opt_1: Command generated to export files. -->
         <div id="reply2" class="hide my-output">
-          <h6 class="text-align"><strong>Reply for Gumdrop when file gives 404 error.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>The file you requested does not exist (Giving file not found - 404 error). Could you please re-upload it?<p>
-            <p>Regards,<p>
-            <p ng-bind="getSenName"></p>
-          </div>
+          <h6 class="text-align"><strong>Command generated to export files.</strong></h6>
+          <div class="getOutput"></div>
           <div class="copyReply">
             <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
               <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
@@ -212,23 +202,10 @@
           </div>
         </div>
 
-        <!-- Reply 3 for opt_2: Reply when trix is not connected to FBX Form. -->
+        <!-- Output 3 for opt_2: Command generated to download whole site. -->
         <div id="reply3" class="hide my-output">
-          <h6 class="text-align"><strong>Reply when trix is not connected to FBX Form.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done.</li>
-              <li><span class="hide">4. </span>Form linked with trix - Unable to connect.</li>
-              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - Could you please share the trix with "<span ng-bind="getFbxShareEmail"></span>" as I am unable to connect the trix?</li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
+          <h6 class="text-align"><strong>Command generated to download whole site.</strong></h6>
+          <div class="getOutput"></div>
           <div class="copyReply">
             <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
               <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
@@ -239,188 +216,10 @@
           </div>
         </div>
 
-        <!-- Reply 4 for opt_3: Reply for Non-Salesforce FBX Form and no-access to trix. -->
+        <!-- Output 4 for opt_3: Command generated to export whole site. -->
         <div id="reply4" class="hide my-output">
-          <h6 class="text-align"><strong>Reply for Non-Salesforce FBX Form and no-access to trix.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done.</li>
-              <li><span class="hide">4. </span>Form linked with trix - Connected.</li>
-              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - We don't have access to the spreadsheet, so please run a test yourself to make sure responses are populated correctly in trix.</li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
-          <div class="copyReply">
-            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
-            </button>
-          </div>
-        </div>
-
-        <!-- Reply 5 for opt_4: Reply when Salesforce is connected to FBX Form. -->
-        <div id="reply5" class="hide my-output">
-          <h6 class="text-align"><strong>Reply when Salesforce is connected to FBX Form.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
-              <li><span class="hide">4. </span>Form integrated with the Salesforce - Already integrated.</li>
-              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - As this is Salesforce form, we can't check the data collection at our end. Please check and let us know if you face any issue.</li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
-          <div class="copyReply">
-            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
-            </button>
-          </div>
-        </div>
-
-        <!-- Reply 6 for opt_5: Reply when user don't have access to trix. -->
-        <div id="reply6" class="hide my-output">
-          <h6 class="text-align"><strong>Reply when user don't have access to trix.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
-              <li><span class="hide">4. </span>Form linked with trix - Connected.</li>
-              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - We don't have access to the spreadsheet, so please run a test yourself to make sure responses are populated correctly in trix.</li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
-          <div class="copyReply">
-            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
-            </button>
-          </div>
-        </div>
-
-        <!-- Reply 7 for opt_6: Reply when FBX Form's start date is Future Date. -->
-        <div id="reply7" class="hide my-output">
-          <h6 class="text-align"><strong>Reply when FBX Form's start date is Future Date.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>I have published the form to live.<p>
-            <p>Note: Currently the live form is landing on the blank page as the start date of the form is set as <span ng-bind="getFbxStartDt | date:'MM / dd / yyyy'"></span>.</p>
-            <p>Live URL: <span ng-bind="getFbxLiveUrl"></span></p>
-            <p>Preview URL: <span ng-bind="getFbxPreUrl"></span></p>.
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
-              <li><span class="hide">4. </span>Form linked with trix - Done.</li>
-              <li><span class="hide">5. </span>Checked for the data collection: <span ng-bind="getFbxData"></span></li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
-          <div class="copyReply">
-            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
-            </button>
-          </div>
-        </div>
-
-        <!-- Reply 8 for opt_7: Reply for AJAX FBX Form. -->
-        <div id="reply8" class="hide my-output">
-          <h6 class="text-align"><strong>Reply for AJAX FBX Form.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
-              <li><span class="hide">4. </span>Form linked with trix - Connected.</li>
-              <li><span class="hide">5. </span>Check data collection in Google Trix after form is published - As this is an Ajax form, we are not able to check the data collection. Kindly check the same at your end.</li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
-          <div class="copyReply">
-            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
-            </button>
-          </div>
-        </div>
-
-        <!-- Reply 9 for opt_8: Reply when App Engine Datastore is used for data collection of FBX Form. -->
-        <div id="reply9" class="hide my-output">
-          <h6 class="text-align"><strong>Reply when App Engine Datastore is used for data collection of FBX Form.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
-              <li><span class="hide">4. </span>Form linked with trix - NO, As the form is linked to "App Engine datastore".</li>
-            </ol>
-            <p>Do you need Google Spreadsheet for data collection?</p>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
-          <div class="copyReply">
-            <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-              <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reset-page">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Clear Reply
-            </button>
-          </div>
-        </div>
-
-        <!-- Reply 10 for opt_9: Reply when trix is connected to FBX Form and working properly. -->
-        <div id="reply10" class="hide my-output">
-          <h6 class="text-align"><strong>Reply when trix is connected to FBX Form and working properly.</strong></h6>
-          <div class="getOutput">
-            <p>Hi <span ng-bind="getRecName"></span>,</p>
-            <p>Form is live @ <span ng-bind="getFbxLiveUrl"></span><p>
-            <p>Test scenarios:<p>
-            <ol>
-              <li><span class="hide">1. </span>Check for all the fields in form editor tab - Done.</li>
-              <li><span class="hide">2. </span>Check the char limit for field names - Done.</li>
-              <li><span class="hide">3. </span>Check for all the set fields in details tab - Done</li>
-              <li><span class="hide">4. </span>Form linked with trix - Done</li>
-              <li><span class="hide">5. </span>Checked for the data collection: <span ng-bind="getFbxData"></span></li>
-            </ol>
-            <p>Regards,<p>
-            <p><span ng-bind="getSenName"></span></p>
-          </div>
+          <h6 class="text-align"><strong>Command generated to export whole site.</strong></h6>
+          <div class="getOutput"></div>
           <div class="copyReply">
             <button class="copy-data mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
               <i class="fa fa-files-o" aria-hidden="true"></i>&nbsp;&nbsp;Copy Reply

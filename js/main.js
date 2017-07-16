@@ -28,15 +28,14 @@ function checkfileDown(sender) {
   if (validExts.indexOf(fileExt) < 0) {
     alert("You selected {*" + fileExt + "} file, which is not a valid input file for this tool.\nPlease select valid {*" + validExts.toString() + "} file.");
     $(sender).val("");
-    fileDisplayAreaDown.innerText = "";
+    fileDisplayAreaDown.value = "";
     return false;
   } else {
     var readerDown = new FileReader();
     readerDown.onload = function (e) {
-      fileDisplayAreaDown.innerText = this.result;
+      fileDisplayAreaDown.value = this.result;
     }
     readerDown.readAsText(fileDown);
-    console.log(fileDisplayAreaDown.textContent);
   }
 }
 
@@ -50,36 +49,17 @@ function checkfileExp(sender) {
   if (validExts.indexOf(fileExt) < 0) {
     alert("You selected {*" + fileExt + "} file, which is not a valid input file for this tool.\nPlease select valid {*" + validExts.toString() + "} file.");
     $(sender).val("");
-    fileDisplayAreaExp.innerText = "";
+    fileDisplayAreaExp.value = "";
     return false;
   } else {
     var readerExp = new FileReader();
     readerExp.onload = function (e) {
-      fileDisplayAreaExp.innerText = this.result.split('\n');
+      fileDisplayAreaExp.value = this.result;
     }
     readerExp.readAsText(fileExp);
-    console.log(fileDisplayAreaExp.innerText);
   }
 }
 
-function getTextOut() {
-  var fileInput = document.getElementById('fileInput');
-  var fileDisplayArea = document.getElementById('fileDisplayArea');
-  var file = fileInput.files[0];
-  var textType = /text.*/;
-
-  if (file.type.match(textType)) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      fileDisplayArea.innerText = reader.result;
-    }
-
-    reader.readAsText(file);
-  } else {
-    fileDisplayArea.innerText = "File not supported!"
-  }
-}
 
 var inputTable = document.getElementById("table");
 var myInput = document.getElementsByClassName(" my-input");
@@ -142,10 +122,103 @@ function myFunction() {
   }
 }
 
+function generateCommand() {
+  var branchName = document.getElementById("getBranchName").value;
+  var downloadPath = document.getElementById("getDownloadPath").value;
+  var exportPath = document.getElementById("getExportPath").value;
+  var downloadSitePath = document.getElementById("getDownSitePath").value;
+  var exportSitePath = document.getElementById("getExpSitePath").value;
+  var getCommandType = document.getElementById("getCommandType");
+  var getSelectedValue = getCommandType.options[getCommandType.selectedIndex].value;
+  var getOutput = document.getElementsByClassName("getOutput");
+  var fileListDown = document.getElementById('fileDisplayAreaDownload').value.replace(/\s/g, "").split(",");
+  var fileListExp = document.getElementById('fileDisplayAreaExport').value.replace(/\s/g, "").split(",");
+  var downSiteTag = document.getElementById("getDownSiteTag").value;
+  var expSiteTag = document.getElementById("getExpSiteTag").value;
+  var fileListDownLen = fileListDown.length;
+  var fileListExpLen = fileListExp.length;
+  var fileDisplayAreaDown = document.getElementById('fileDisplayAreaDownload').value;
+  var fileDisplayAreaExp = document.getElementById('fileDisplayAreaExport').value;
+//  var re = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+
+  if (getSelectedValue === "opt_0") {
+    if (branchName === "" || fileDisplayAreaDown === "") {
+      alert("Please fill all the required fields first and then click 'Generate' button.");
+    } else {
+      var downArr = [];
+
+      for (var i = 0; i < fileListDownLen; i++) {
+//      var j = i;
+//      if (!re.test(fileListDown[i])) {
+//        alert("File @ index {" + j++ + "} i.e. {" + fileListDown[i] + "} is not valid.\nPlease rectify the url and try again.\nThanks!");
+//        return false;
+//      } else {
+        downArr += "--file=" + fileListDown[i] + " ";
+//      }
+      }
+      if (downloadPath !== "") {
+        getOutput[0].innerText = "goro download --branch=" + branchName + " " + downArr + downloadPath;
+      } else {
+        getOutput[0].innerText = "goro download --branch=" + branchName + " " + downArr;
+      }
+      alert("Download Command Generation Successfull.\n\nPlease copy the command and paste it \ninto terminal to download the files.");
+    }
+  }
+  if (getSelectedValue === "opt_1") {
+    if (branchName === "" || fileDisplayAreaExp === "") {
+      alert("Please fill all the required fields first and then click 'Generate' button.");
+    } else {
+      var expArr = [];
+
+      for (var i = 0; i < fileListExpLen; i++) {
+//      var j = i;
+//      if (!re.test(fileListExp[i])) {
+//        alert("File @ index {" + j++ + "} i.e. {" + fileListExp[i] + "} is not valid.\nPlease rectify the url and try again.\nThanks!");
+//        return false;
+//      } else {
+        expArr += "--file=" + fileListExp[i] + " ";
+//      }
+      }
+      if (exportPath !== "") {
+        getOutput[1].innerText = "goro export --branch=" + branchName + " " + expArr + exportPath;
+      } else {
+        getOutput[1].innerText = "goro export --branch=" + branchName + " " + expArr;
+      }
+      alert("Export Command Generation Successfull.\n\nPlease copy the command and paste it \ninto terminal to export the files.");
+    }
+  }
+  if (getSelectedValue === "opt_2") {
+    if (branchName === "" || downSiteTag === "") {
+      alert("Please fill all the required fields first and then click 'Generate' button.");
+    } else {
+      if (downloadSitePath !== "") {
+        getOutput[2].innerText = "goro download --branch=" + branchName + " --site=" + downSiteTag + " " + downloadSitePath;
+      } else {
+        getOutput[2].innerText = "goro download --branch=" + branchName + " --site=" + downSiteTag;
+      }
+      alert("Download Command Generation Successfull.\n\nPlease copy the command and paste it \ninto terminal to download all the files of the site.");
+    }
+  }
+  if (getSelectedValue === "opt_3") {
+    if (branchName === "" || expSiteTag === "") {
+      alert("Please fill all the required fields first and then click 'Generate' button.");
+    } else {
+      if (exportSitePath !== "") {
+        getOutput[3].innerText = "goro export --branch=" + branchName + " --site=" + expSiteTag + " " + exportSitePath;
+      } else {
+        getOutput[3].innerText = "goro export --branch=" + branchName + " --site=" + expSiteTag;
+      }
+      alert("Export Command Generation Successfull.\n\nPlease copy the command and paste it \ninto terminal to export all the files of the site.");
+    }
+  }
+}
+
 function showReply() {
+  generateCommand();
   var getCommandType = document.getElementById("getCommandType");
   var getSelectedIndex = getCommandType.selectedIndex;
   var getTypeOptionLen = getCommandType.options.length;
+
   if (getSelectedIndex === 0) {
     getReply[0].classList.remove("hide");
   } else {
