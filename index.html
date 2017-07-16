@@ -18,23 +18,24 @@
 
     <!--Import materialize.css-->
     <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+    <link href="css/font-awesome-animation.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/default.css">
   </head>
 
   <body ng-app="">
     <nav class="indigo darken-1" role="navigation">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="https://dd-gedcc.appspot.com/" class="brand-logo" title="GEDCC"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
-        <a href="https://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase" title="GEDCC">gedcc</a>
+        <a id="logo-container" href="http://dd-gedcc.appspot.com/" class="brand-logo" title="GEDCC"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
+        <a href="http://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase" title="GEDCC">gedcc</a>
       </div>
     </nav>
 
     <div class="container">
       <div class="alert alert-warning warn-content">
         <button class="btn-warning" id="close-warning"><i class="fa fa-times" aria-hidden="true"></i></button>
-        <h5><i class="fa fa-warning" aria-hidden="true"></i> Warning!</h5>
+        <h5><i class="faa-slow fa fa-warning faa-flash animated" aria-hidden="true"></i> Warning!</h5>
         <p><i class="fa fa-star" aria-hidden="true"></i> This tool is developed for internal use only. Please do not circulate the link outside the project.</p>
-        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please create a text (.txt) file with list of files.</p>
+        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> If generating a command for particular files, then please create a text <code>(.txt)</code> file with list of files. For demo file <a href="//storage.googleapis.com/dd-gedcc.appspot.com/demo-file/export_demo_file.txt" download>Click Here</a></p>
       </div>
 
       <!-- Input Section Starts -->
@@ -45,7 +46,7 @@
         <!-- Select type type to generate export/download command starts-->
         <div class="input-field col s12">
           <select id="getReplyType" onchange="myFunction();">
-            <option value="" disabled selected>Please select type to generate export/download command: </option>
+            <option value="" disabled selected>Please select type to generate export / download command: </option>
             <optgroup label="Using File List">
               <option value="opt_0">Generate Download command using list of files.</option>
               <option value="opt_1">Generate Export command using list of files.</option>
@@ -63,22 +64,44 @@
           <div class="row col s12 hide my-input" id="input0">
             <div class="input-field col s12">
               <input id="getBranchName" type="text" class="validate" ng-model="getBranchName">
-              <label for="getBranchName">Please Enter full branch name *</label>
+              <label for="getBranchName">Please enter full Goro branch name (E.g.: cybage-...-... / preview-...-...)*</label>
             </div>
           </div>
           <!-- Eod of Receiver's and Sender's Name -->
 
           <div class="row hide my-input" id="input1">
             <div class="input-field col s12">
-              <input id="getGumLiveUrl" type="text" class="validate" ng-model="getGumLiveUrl">
-              <label for="getGumLiveUrl">Gumdrop Live URL *</label>
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span class="text">Select <code class="text-lowercase">.txt</code> file with list of files to download.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
+                  <input type="file" accept=".txt" onchange="checkfile(this);">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <input id="getDownloadPath" type="text" class="validate" ng-model="getDownloadPath">
+              <label for="getDownloadPath">Please enter the location to save downloaded files. (optional) [E.g.: /Users/{LDAP}/Documents/for_cider/{sitename}]</label>
             </div>
           </div>
 
           <div class="row hide my-input" id="input2">
             <div class="input-field col s12">
-              <input id="getFbxPreUrl" type="text" class="validate" ng-model="getFbxPreUrl">
-              <label for="getFbxPreUrl">Enter the FBX Form's Preview URL *</label>
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span class="text">Select <code class="text-lowercase">.txt</code> file with list of files to export.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
+                  <input type="file" accept=".txt" onchange="checkfile(this);">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
+              <label for="getExportPath">Please enter the location to save exported files. (optional) [/Users/{LDAP}/Documents/for_cider/{sitename}]</label>
             </div>
           </div>
 
@@ -126,9 +149,9 @@
             <tr>
               <td class="center-align">
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="show-reply">
-                  <marquee direction="right" scrolldelay="500" height="14px" width="20"><i class="fa fa-sign-in" aria-hidden="true"></i></marquee>
+                  <i class="fa fa-sign-in faa-horizontal animated" aria-hidden="true"></i>
                   &nbsp;&nbsp;Generate&nbsp;&nbsp;
-                  <marquee direction="right" scrolldelay="750" height="14px" width="20"><i class="fa fa-sign-out" aria-hidden="true"></i></marquee>
+                  <i class="fa fa-sign-out faa-passing animated" aria-hidden="true"></i>
                 </button>
               </td>
               <td class="center-align">

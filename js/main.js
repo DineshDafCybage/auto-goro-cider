@@ -17,6 +17,18 @@ function closeWarning() {
   warnContent.classList.add("hide");
 }
 
+function checkfile(sender) {
+  var validExts = new Array(".txt");
+  var fileExt = sender.value;
+  fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+  if (validExts.indexOf(fileExt) < 0) {
+    alert("You selected {*" + fileExt + "} file, which is not a valid input file for this tool.\nPlease select valid {*" + validExts.toString() + "} file.");
+    $(sender).val("");
+    return false;
+  } else
+    return true;
+}
+
 var inputTable = document.getElementById("table");
 var myInput = document.getElementsByClassName(" my-input");
 var myOutput = document.getElementsByClassName(" my-output");
