@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="robots" content="noindex, nofollow">
     <title>Auto Command Generator</title>
-    <link rel="icon" href="https://storage.googleapis.com/dd-gedcc.appspot.com/icon/icon.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="https://storage.googleapis.com/dd-gedcc.appspot.com/icon/favicon.png" type="image/png" sizes="16x16">
     <link rel="canonical" href="https://dd-gedcc.appspot.com/">
 
     <!--Import Google Icon Font-->
@@ -24,8 +24,8 @@
   <body ng-app="">
     <nav class="indigo darken-1" role="navigation">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="https://dd-gedcc.appspot.com/" class="brand-logo"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
-        <a href="https://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase">gedcc</a>
+        <a id="logo-container" href="https://dd-gedcc.appspot.com/" class="brand-logo" title="GEDCC"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
+        <a href="https://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase" title="GEDCC">gedcc</a>
       </div>
     </nav>
 
@@ -42,7 +42,7 @@
       <div class="input-section">
         <h4>Input Section</h4>
 
-        <!-- Select type of reply starts-->
+        <!-- Select type type to generate export/download command starts-->
         <div class="input-field col s12">
           <select id="getReplyType" onchange="myFunction();">
             <option value="" disabled selected>Please select type to generate export/download command: </option>
@@ -54,7 +54,7 @@
             </optgroup>
           </select>
         </div>
-        <!-- Select type of reply ends-->
+        <!-- Select type type to generate export/download command ends-->
 
         <form id="myForm">
           <!-- Start of Receiver's and Sender's Name -->
@@ -148,7 +148,7 @@
 
         <!-- Reply 0: Alert when nothing is selected.-->
         <div id="reply0" class="show my-output">
-          <p class="red-text"><i class="fa fa-warning" aria-hidden="true"></i><span id="empty-fields"> Please select type of reply required.</span></p>
+          <p class="red-text"><i class="fa fa-warning" aria-hidden="true"></i><span id="empty-fields"> Please select type to generate command.</span></p>
         </div>
 
         <!-- Reply 1 for opt_0: Reply for Gumdrop after publishing file. -->
@@ -437,7 +437,7 @@
                 m.parentNode.insertBefore(a, m)
               })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-              ga('create', 'UA-91943232-2', 'auto');
+              ga('create', 'UA-102616760-1', 'auto');
               ga('send', 'pageview');
 
     </script>
