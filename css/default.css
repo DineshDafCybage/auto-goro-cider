@@ -47,6 +47,10 @@ label {
   color: #FF4081 !important;
 }
 
+.input-field {
+  margin-top: 0;
+}
+
 /*For devices above 992px.*/
 @media screen and (min-width: 993px) {
   nav a:last-child {

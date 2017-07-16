@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://dd-gedcc.appspot.com/">
 
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -25,8 +25,8 @@
   <body ng-app="">
     <nav class="indigo darken-1" role="navigation">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="http://dd-gedcc.appspot.com/" class="brand-logo" title="GEDCC"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
-        <a href="http://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase" title="GEDCC">gedcc</a>
+        <a id="logo-container" href="https://dd-gedcc.appspot.com/" class="brand-logo" title="GEDCC"><img src="https://storage.googleapis.com/dd-gedcc.appspot.com/logo/logo.png" alt="Logo"></a>
+        <a href="https://dd-gedcc.appspot.com/" id="pagelink" class="text-uppercase" title="GEDCC">gedcc</a>
       </div>
     </nav>
 
@@ -35,7 +35,8 @@
         <button class="btn-warning" id="close-warning"><i class="fa fa-times" aria-hidden="true"></i></button>
         <h5><i class="faa-slow fa fa-warning faa-flash animated" aria-hidden="true"></i> Warning!</h5>
         <p><i class="fa fa-star" aria-hidden="true"></i> This tool is developed for internal use only. Please do not circulate the link outside the project.</p>
-        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> If generating a command for particular files, then please create a text <code>(.txt)</code> file with list of files. For demo file <a href="//storage.googleapis.com/dd-gedcc.appspot.com/demo-file/export_demo_file.txt" download>Click Here</a></p>
+        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> If generating a command for particular files, then please create a text <code>(.txt)</code> file with list of files. For demo file <a href="https://storage.googleapis.com/dd-gedcc.appspot.com/demo-file/export_demo_file.txt" download>Click Here</a></p>
+        <p><i class="fa fa-check-circle" aria-hidden="true"></i> If you want to save the exported / downloaded files to particular location, then please enter a valid path while generating the command. For e.g.: <code>/Users/{LDAP}/Documents/for_cider/{export / download}/{sitename}</code></p>
       </div>
 
       <!-- Input Section Starts -->
@@ -43,9 +44,8 @@
       <div class="input-section">
         <h4>Input Section</h4>
 
-        <!-- Select type type to generate export/download command starts-->
         <div class="input-field col s12">
-          <select id="getReplyType" onchange="myFunction();">
+          <select id="getCommandType" onchange="myFunction();">
             <option value="" disabled selected>Please select type to generate export / download command: </option>
             <optgroup label="Using File List">
               <option value="opt_0">Generate Download command using list of files.</option>
@@ -57,89 +57,91 @@
             </optgroup>
           </select>
         </div>
-        <!-- Select type type to generate export/download command ends-->
 
         <form id="myForm" validate>
-          <!-- Start of Receiver's and Sender's Name -->
+          <!-- Get Branch Name start -->
           <div class="row col s12 hide my-input" id="input0">
             <div class="input-field col s12">
               <input id="getBranchName" type="text" class="validate" ng-model="getBranchName">
               <label for="getBranchName">Please enter full Goro branch name (E.g.: cybage-...-... / preview-...-...)*</label>
             </div>
           </div>
-          <!-- Eod of Receiver's and Sender's Name -->
+          <!-- Get Branch Name end -->
 
-          <div class="row hide my-input" id="input1">
-            <div class="input-field col s12">
+          <!-- Download using file list start -->
+          <div class="row hide my-input col s12" id="input1">
+            <div class="input-field col s6">
               <div class="file-field input-field">
                 <div class="btn">
-                  <span class="text">Select <code class="text-lowercase">.txt</code> file with list of files to download.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
-                  <input type="file" accept=".txt" onchange="checkfile(this);">
+                  <span class="text">Select file.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
+                  <input type="file" accept=".txt" onchange="checkfileDown(this);" id="fileInputDownload">
                 </div>
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
                 </div>
               </div>
             </div>
-            <div class="input-field col s12">
+
+            <div class="input-field col s6">
               <input id="getDownloadPath" type="text" class="validate" ng-model="getDownloadPath">
-              <label for="getDownloadPath">Please enter the location to save downloaded files. (optional) [E.g.: /Users/{LDAP}/Documents/for_cider/{sitename}]</label>
+              <label for="getDownloadPath">Please enter the location to save downloaded files. (optional)</label>
             </div>
+            
+            <textarea id="fileDisplayAreaDownload"></textarea>
           </div>
+          <!-- Download using file list end -->
 
-          <div class="row hide my-input" id="input2">
-            <div class="input-field col s12">
+          <!-- Export using file list start -->
+          <div class="row hide my-input col s12" id="input2">
+            <div class="input-field col s6">
               <div class="file-field input-field">
                 <div class="btn">
-                  <span class="text">Select <code class="text-lowercase">.txt</code> file with list of files to export.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
-                  <input type="file" accept=".txt" onchange="checkfile(this);">
+                  <span class="text">Select file.</span>&nbsp;&nbsp;<i class="faa-slow fa fa-file-text faa-flash animated" aria-hidden="true"></i>
+                  <input type="file" accept=".txt" onchange="checkfileExp(this);" id="fileInputExport">
                 </div>
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text" placeholder="Please select a valid .txt file *">
                 </div>
               </div>
             </div>
-            <div class="input-field col s12">
+
+            <div class="input-field col s6">
               <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
-              <label for="getExportPath">Please enter the location to save exported files. (optional) [/Users/{LDAP}/Documents/for_cider/{sitename}]</label>
+              <label for="getExportPath">Please enter the location to save exported files. (optional)</label>
             </div>
+            
+            <pre id="fileDisplayAreaExport"></pre>
           </div>
+          <!-- Export using file list end -->
 
-          <div class="row hide my-input" id="input3">
-            <div class="input-field col s12">
+          <!-- Download using site tag start -->
+          <div class="row hide my-input col s12" id="input3">
+            <div class="input-field col s6">
               <input id="getFbxLiveUrl" type="text" class="validate" ng-model="getFbxLiveUrl">
-              <label for="getFbxLiveUrl">Enter the FBX Form's Live URL *</label>
+              <label for="getFbxLiveUrl">Please enter site-tag of a particular site to download all files. *</label>
             </div>
-          </div>
 
-          <div class="row col s12 hide my-input" id="input4">
-            <div class="row col s6">
-              FBX Form Start Date:<span class="red-text">*</span>
-              <div class="inline">
-                <input id="getFbxStartDt" type="date" class="validate" ng-model="getFbxStartDt">
-              </div>
-            </div>
-            <div class="row col s6">
-              FBX Form End Date:
-              <div class="inline">
-                <input id="getFbxEndDt" type="date" class="validate" ng-model="getFbxEndDt">
-              </div>
+            <div class="input-field col s6">
+              <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
+              <label for="getExportPath">Please enter the location to save downloaded files. (optional)</label>
             </div>
           </div>
+          <!-- Download using site tag end -->
 
-          <div class="row hide my-input" id="input5">
-            <div class="input-field col s12">
-              <input id="getFbxShareEmail" type="text" class="validate" ng-model="getFbxShareEmail">
-              <label for="getFbxShareEmail">FBX Form's trix sharing email *</label>
+          <!-- Export using site tag start -->
+          <div class="row col s12 hide my-input col s12" id="input4">
+            <div class="input-field col s6">
+              <input id="getFbxLiveUrl" type="text" class="validate" ng-model="getFbxLiveUrl">
+              <label for="getFbxLiveUrl">Please enter site-tag of a particular site to export all files. *</label>
             </div>
-          </div>
 
-          <div class="row hide my-input" id="input6">
-            <div class="input-field col s12">
-              <input id="getFbxData" type="text" class="validate" ng-model="getFbxData">
-              <label for="getFbxData">FBX Form's data collection URL *</label>
+            <div class="input-field col s6">
+              <input id="getExportPath" type="text" class="validate" ng-model="getExportPath">
+              <label for="getExportPath">Please enter the location to save exported files. (optional)</label>
             </div>
           </div>
+          <!-- Export using site tag end -->
+
         </form>
 
         <!-- Input Section Ends -->
@@ -169,7 +171,7 @@
 
         <!-- Reply 0: Alert when nothing is selected.-->
         <div id="reply0" class="show my-output">
-          <p class="red-text"><i class="fa fa-warning" aria-hidden="true"></i><span id="empty-fields"> Please select type to generate command.</span></p>
+          <p class="red-text faa-slow faa-flash animated"><i class="fa fa-warning" aria-hidden="true"></i><span id="empty-fields"> Please select type to generate command.</span></p>
         </div>
 
         <!-- Reply 1 for opt_0: Reply for Gumdrop after publishing file. -->
