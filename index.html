@@ -33,8 +33,8 @@
       <div class="alert alert-warning warn-content">
         <button class="btn-warning" id="close-warning"><i class="fa fa-times" aria-hidden="true"></i></button>
         <h5><i class="fa fa-warning" aria-hidden="true"></i> Warning!</h5>
-        <p><i class="fa fa-star" aria-hidden="true"></i> This tool is developed for internal use only. Please check the generated reply carefully before replying.</p>
-        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Tool developer will not be responsible in case if wrong reply is sent by sender.</p>
+        <p><i class="fa fa-star" aria-hidden="true"></i> This tool is developed for internal use only. Please do not circulate the link outside the project.</p>
+        <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please create a text (.txt) file with list of files.</p>
       </div>
 
       <!-- Input Section Starts -->
@@ -47,25 +47,23 @@
           <select id="getReplyType" onchange="myFunction();">
             <option value="" disabled selected>Please select type to generate export/download command: </option>
             <optgroup label="Using File List">
-              <option value="opt_0">Generate Export / Download command using list of files.</option>
+              <option value="opt_0">Generate Download command using list of files.</option>
+              <option value="opt_1">Generate Export command using list of files.</option>
             </optgroup>
-            <optgroup label="Using Site Tag">
-              <option value="opt_1">Generate Export / Download command using site tag directly.</option>
+            <optgroup label="Using Site Tag Directly">
+              <option value="opt_2">Generate Download command using site tag.</option>
+              <option value="opt_3">Generate Export command using site tag.</option>
             </optgroup>
           </select>
         </div>
         <!-- Select type type to generate export/download command ends-->
 
-        <form id="myForm">
+        <form id="myForm" validate>
           <!-- Start of Receiver's and Sender's Name -->
           <div class="row col s12 hide my-input" id="input0">
-            <div class="input-field col s6">
-              <input id="getRecName" type="text" class="validate" ng-model="getRecName" autofocus>
-              <label for="getRecName">Receiver's Name *</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="getSenName" type="text" class="validate" ng-model="getSenName">
-              <label for="getSenName">Sender's Name *</label>
+            <div class="input-field col s12">
+              <input id="getBranchName" type="text" class="validate" ng-model="getBranchName">
+              <label for="getBranchName">Please Enter full branch name *</label>
             </div>
           </div>
           <!-- Eod of Receiver's and Sender's Name -->
@@ -414,7 +412,7 @@
       <div class="footer-copyright">
         <div class="container">
           © 2017 Copyright DD
-          <span class="grey-text text-lighten-4 right">Webpage designed &amp; developed by Dinesh K. Daf.</span>
+          <span class="grey-text text-lighten-4 right">Web-Tool designed &amp; developed by Dinesh K. Daf.</span>
         </div>
       </div>
     </footer>
