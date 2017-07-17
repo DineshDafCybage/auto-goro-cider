@@ -122,6 +122,18 @@ function myFunction() {
   }
 }
 
+//splitMulti('a=b,c:d', ['=', ',', ':'])
+function splitMulti(str, tokens) {
+  var tempChar = tokens[0]; // We can use the first token as a temporary join character
+  var rex = /\S/;
+  for (var i = 0; i < tokens.length; i++) {
+    str = str.split(tokens[i]).join(tempChar);
+  }
+  str = str.split(tempChar);
+
+  return (str.filter(rex.test.bind(rex)));
+}
+
 function generateCommand() {
   var branchName = document.getElementById("getBranchName").value;
   var downloadPath = document.getElementById("getDownloadPath").value;
@@ -131,8 +143,8 @@ function generateCommand() {
   var getCommandType = document.getElementById("getCommandType");
   var getSelectedValue = getCommandType.options[getCommandType.selectedIndex].value;
   var getOutput = document.getElementsByClassName("getOutput");
-  var fileListDown = document.getElementById('fileDisplayAreaDownload').value.replace(/\s/g, "").split(",");
-  var fileListExp = document.getElementById('fileDisplayAreaExport').value.replace(/\s/g, "").split(",");
+  var fileListDown = splitMulti(document.getElementById('fileDisplayAreaDownload').value, [',', '\n', ';', " "]);
+  var fileListExp = splitMulti(document.getElementById('fileDisplayAreaExport').value, [',', '\n', ';', " "]);
   var downSiteTag = document.getElementById("getDownSiteTag").value;
   var expSiteTag = document.getElementById("getExpSiteTag").value;
   var fileListDownLen = fileListDown.length;
@@ -141,6 +153,7 @@ function generateCommand() {
   var fileDisplayAreaExp = document.getElementById('fileDisplayAreaExport').value;
 //  var re = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 
+  console.log(fileListDown || fileListExp);
   if (getSelectedValue === "opt_0") {
     if (branchName === "" || fileDisplayAreaDown === "") {
       alert("Please fill all the required fields first and then click 'Generate' button.");

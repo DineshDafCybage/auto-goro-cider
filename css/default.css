@@ -72,7 +72,7 @@ label {
     padding: 5px;
   }
 
-  #reply0, #reply1, #reply2, #reply3, #reply4, #reply5, #reply6, #reply7, #reply8, #reply9, #reply10 {
+  #reply0, #reply1, #reply2, #reply3, #reply4 {
     border: 1px dotted #3F51B5;
     margin-top: 2%;
     padding: 1%;
@@ -84,19 +84,19 @@ label {
 
   .getOutput {
     border: 1px dotted #FF4081;
+    height: 150px;
+    max-width: 67%;
+    overflow-y: scroll;
     padding: 1%;
-    max-width: 76%;
-    width: 100%;
   }
 
   .copyReply {
-    max-width: 20%;
     max-height: 50%;
   }
 
   .getOutput,
   .copyReply {
-    display: inline-table;
+    display: inline-grid;
   }
 
   .copyReply button {
@@ -105,6 +105,21 @@ label {
 
   .copyReply button:last-child {
     margin-top: 30%;
+  }
+
+  #reply3 .getOutput,
+  #reply3 .copyReply,
+  #reply4 .getOutput,
+  #reply4 .copyReply {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    overflow: initial;
+  }
+
+  #reply3 .copyReply button,
+  #reply4 .copyReply button {
+    margin: 18px 50px 9px;
   }
 }
 
